@@ -1,0 +1,192 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="UTF-8"> 
+       <title>Configuración de ambiente de la aplicaciòn</title>
+	   <meta name="description" content="ProyectoFinal 5AVPR"> 
+	   <meta name="author" content="Gemma Yolanda Cinco Hernàndez" >
+        <style>
+         body {
+            margin: 0;
+            font-size: 20px;
+        }
+
+        .header {
+            background-image: url(background.jpg);
+            padding: 50px;
+            text-align: center;
+            font-family:Futura;
+            color:yellowgreen;
+            font-size: 40px;
+        }
+        #navbar {
+            overflow: hidden;
+            background-color: yellowgreen;
+            }
+
+            #navbar a {
+            float: left;
+            display: block;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+        }
+        .content {
+            padding: 16px;
+            background-color:white;
+            margin:20px;
+        }
+
+        .sticky {
+            position: fixed;
+            top: 0;
+            width: 100%;
+        }
+
+        .sticky + .content {
+            padding-top: 60px;
+        }
+        </style>
+    </head>
+    <body>
+            <div class="header">
+                    <header><span style="background-color:white;">Ambiente de una aplicación</span></header>
+            </div>
+            <div id="navbar">
+                    <a href="javascript:void(0)"><a href="#Actualización de paquetes">Actualización de paquetes</a></a>
+                    <a href="javascript:void(0)"><a href="#Instalar paquete">Instalar paquete</a></a>
+                    <a href="javascript:void(0)"><a href="#Configuración de Red anfitrión">Configuración de Red anfitrión</a></a>
+                    <a href="javascript:void(0)"><a href="#Configuración de VirtualHost">Configuración de VirtualHost</a></a>
+                    <a href="javascript:void(0)"><a href="#Crear un usuario en MYSQL">Crear un usuario en MYSQL</a></a>
+                    <a href="javascript:void(0)"><a href="#Cambiar usuario y contraseña">Cambiar usuario y contraseña</a></a>
+                    <a href="javascript:void(0)"><a href="#Clonar repositorio a carpeta">Clonar repositorio a carpeta</a></a>
+
+            </div>
+            <div class="content">
+                    <p style="text-align: center">
+                        <h3 id="Configuración de Red anfitrión" style="font-size: 30px;">Configuración de Red anfitrión</h3>
+                        Para la configuración de la Red anfitrión de la máquina virtual haz lo siguiente:
+                        <ol>
+                            <li>Ve a la opción de <b>Herramientas globales</b></li>
+                            <li>Crea una tarjeta #2 hacienco clic en el botón <b>Crear</b></li>
+                            <li>Habilita la tarjeta en la parte derecha de la pestaña.</li>
+                            <li>Haz clic al apartado de <b>Red</b> que está dentro de la <b>Configuración</b> de tu máquina virtual </li>
+                            <li>Entra a <b>Adaptador 2</b> y haz clic en <b>Habilitar adaptador de red</b></li>
+                            <li>Cambia el nombre a <b>VirtualBox Host-only Ethernet Adapter #2</b></li>
+                        </ol>
+                        <h3 id="Actualización de paquetes" style="font-size: 30px;">Actualización de paquetes</h3>
+                             Para actualizar los paquetes primeramente debes seguir las siguientes instrucciones:
+                             <ol>
+                                 <li>Escribe en la consola <b>sudo apt update</b> + enter para ver los paquetes que se están actualizando o se actualizarán.</li>
+                                 <li>Escribe <b>sudo apt upgrade</b> + enter para actualizar los paquetes.</li>
+                                 <li>Confirma la orden escribiendo <b>S</b> + enter.</li>
+                                 <li>Escribe la contraseña para dar acceso.</li>
+                             </ol>
+                        <h3 id="Instalar paquete" style="font-size: 30px;">Instalar paquete</h3>
+                             Como ejemplo haz la instalación de Apache, que en ubuntu es igual a apache2. Sigue las instrucciones:
+                             <ol>
+                                 <li>Escribe <b>apt search httpd</b> para ver si hay posibles actualizaciones de paquetes. </li>
+                                 <li>Escribe <b>apt search apache</b> y después <b>apache2</b> para buscar el paquete de apache2.</li>
+                                 <li>Escribe <b>sudo apt install apache2</b> para la instalación del paquete.</li>
+                                 <li>Acepta la orden escribiendo <b>S</b> + enter y escribe la contraseña para dar acceso.</li>
+                                 <li>Para confirmar la instalación inicia el paquete escribiendo <b>sudo service apache2 start</b></li>
+                                 <li>Si quieres detener el servicio escribe <b>sudo service apache2 stop</b></li>
+                             </ol>
+                        <h3 id="Configuración de VirtualHost" style="font-size: 30px;">Configuración de VirtualHost</h3>
+                             Para configurar el VirtualHost haz los siguiente:
+                             <ol>
+                                 <li>Entra a la carpeta <b>/etc/apache2/sites-available</b></li>
+                                 <li>Escribe en la carpeta <b>sudo nano library.com.conf</b> para editarlo.</li>
+                                 <li>Dentro de el archivo, escribe el siguiente código:
+                                </li>
+                                <div style="background-color:gray;"> 
+                                   &lt;VirtualHost *:80&gt;<br>
+                                    ServerName library.com<br>
+                                   ServerAlias www.library.com<br>
+                                   ServerAdmin gemmachchcetis108@gmail.com (ejemplo)<br>
+                                   DocumentRoot /var/log/library.com-error.log<br>
+                                   CustomLog /var/log/library.com-acces.log common<br>
+                                   ServerName <br> &lt;/VirtualHost&gt;
+                                   
+                                </div>
+                                 <li>Comprueba que tus carpetas están en el siguiente orden <b>/etc/apache2/sites-available/</b> escribiendo el comando <b>ls</b></li>
+                                 <li>Dentro de la carpeta sites-available escribe:<br>
+                                        <div style="background-color:gray;"> 
+                                            sudo a2ensite library.com (para habilitar el dominio)
+                                        </div>
+                                 </li>
+                                 <li>Reinicia el servicio de apache con el comando <b>sudo service apache2 restart</b></li>
+                                 <li>Entra a la carpeta de <b>/etc/hosts/</b> y agrega lo siguiente:<br>
+                                    <div style="background-color:gray;"> 
+                                        127.0.0.1 library.com <br>
+                                        127.0.0.1 www.library.com 
+                                    </div>
+                                </li>
+                                <li>Guarda los cambios haciendo ctrl+o</li>
+                                <li>Fuera de la máquina virtual en consola entra a la carpeta <b>/etc/hosts</b> también y agrega el ip de la red anfitrión+nombre del dominio. Por ejemplo: <br>
+                                    <div style="background-color:gray;"> 
+                                        192.168.56.101 library.com <br>
+                                        192.168.56.101 www.library.com 
+                                    </div>
+                                </li>
+                                Tu aplicación ya debería verse fuera de tu máquina virtual.
+                             </ol>
+                        <h3 id="Crear un usuario en MYSQL" style="font-size: 30px;">Crear un usuario en MYSQL</h3>
+                        <ol>
+                            <li>Entra a MYSQL como root con el comando <b>sudo -i</b></li>
+                            <li>Entra a MYSQL escribiendo <b>mysql</b>
+                            </li>
+                            <li>Busca la carpeta <b>/var/www/html/library.com/db/library.sql</b></li>
+                            <li>Escribe <b>show databases</b> para ver la base de datos</li>
+                            <li>Escribe:
+                                <div style="background-color:gray;"> 
+                                        create user 'usuario'@'localhost' identify by 'contraseña';<br>
+                                        grant all on library.* to 'usuario'@'localhost';
+                                </div>    
+                            </li>
+                            <li>Para probar el usuario escribe <b>select,user,host from mysql.user;</b></li>
+                            <li>Sal de mysql escribiendo el comando <b>exit</b></li>
+                            <li>Sal del root escribiendo el mismo comando anterior.</li>
+                            <li>Para probar la conexión escribe
+                                <span style="background-color:gray;">mysql -u usuario -p</span>    
+                            </li>
+                        </ol>
+                        <h3 id="Cambiar usuario y contraseña" style="font-size: 30px;">Cambiar usuario y contraseña</h3>
+                        Para cambiar un usario/contraseña en mysql haz lo siguiente:
+                        <ol>
+                            <li>Entra a la siguiente carpeta escribiendo:<br>
+                             <span style="background-color:gray;">sudo nano /var/www/html/library.com/classes/conexion.php</span> 
+                            </li>
+                            <li>Escribe tu nuevo usuario y contraseña.</li>
+                            <li>Reinicia el servicio de apache escribiendo:<br>
+                                <span style="background-color:gray;">sudo service apache2 restart</span>
+                            </li>
+                        </ol>
+                        <h3 id="Clonar repositorio a carpeta" style="font-size: 30px;">Clonar repositorio a carpeta</h3>
+                        Escribe: <br>
+                            <div style="background-color:gray;"> cd /var/www/html <br>
+                                    sudo git clone <b>https://github.com/dgeti-cetis108/Programacion-M4S2-2018-git</b> <br>
+                                    ls
+                                    sudo mv Programacion-M4S2-2018/library.com (ahí se moverá la carpeta)
+                            </div>
+                    </p>
+                    
+            </div>
+            <script>
+                    window.onscroll = function() {myFunction()};
+                    
+                    var navbar = document.getElementById("navbar");
+                    var sticky = navbar.offsetTop;
+                    
+                    function myFunction() {
+                      if (window.pageYOffset >= sticky) {
+                        navbar.classList.add("sticky")
+                      } else {
+                        navbar.classList.remove("sticky");
+                      }
+                    }
+                    </script>
+    </body>
+</html>
